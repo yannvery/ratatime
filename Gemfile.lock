@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/jnicklas/capybara
-  revision: 4be1a3126c4fbf836561f2e2ce86f02dbdb8d1c0
+  revision: 3f515ff826143397ce9d43cc8b920d34a35d3bb8
   branch: master
   specs:
     capybara (2.8.0.dev)
@@ -69,7 +69,7 @@ GEM
       execjs
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.1)
-    database_cleaner (1.5.1)
+    database_cleaner (1.5.2)
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
     email_validator (1.6.0)
@@ -93,6 +93,8 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (1.8.3)
+    launchy (2.4.3)
+      addressable (~> 2.3)
     listen (3.0.6)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9.7)
@@ -226,6 +228,7 @@ DEPENDENCIES
   factory_girl_rails
   jbuilder (~> 2.0)
   jquery-rails
+  launchy
   listen (~> 3.0.5)
   pry-doc
   pry-rails
