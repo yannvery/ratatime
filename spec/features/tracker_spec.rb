@@ -12,3 +12,13 @@ RSpec.feature 'Add tracker' do
     expect(page).to have_content('Tracker was successfully created.')
   end
 end
+
+RSpec.feature 'Show tracker' do
+  scenario 'With a readable duration' do
+    sign_in
+    tracker = create(:tracker, duration: '15m', description: 'Description')
+    visit tracker_path(tracker)
+
+    expect(page).to have_content('15 minutes')
+  end
+end

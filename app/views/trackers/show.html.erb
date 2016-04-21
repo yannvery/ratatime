@@ -1,4 +1,4 @@
-<p>Duration: <%= @tracker.duration %></p>
+<p>Duration: <%= tracker_duration(@tracker.duration) %></p>
 <p>Desription: <%= @tracker.description %></p>
 
 <%= link_to 'Edit', edit_tracker_path(@tracker) %> |
