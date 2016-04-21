@@ -6,4 +6,10 @@ RSpec.describe Tracker, '#duration=' do
     tracker.duration = '10m'
     expect(tracker.duration).to eq 600
   end
+
+  it 'accepts 09:30 as an input and convert it to 34200 seconds' do
+    tracker = create(:tracker)
+    tracker.duration = '09:30'
+    expect(tracker.duration).to eq 34200
+  end
 end
