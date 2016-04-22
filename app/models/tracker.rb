@@ -6,7 +6,7 @@ class Tracker < ApplicationRecord
     write_attribute(:duration, convert_value)
   end
 
-
+  private
 
   def convert_minutes_for_duration(value)
     minutes_regx = /^(?<Minutes>\d+)m$/x
