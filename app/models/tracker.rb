@@ -1,4 +1,10 @@
 class Tracker < ApplicationRecord
+  belongs_to :user
+
+  validates :duration, presence: true
+  validates :description, presence: true
+  validates :user_id, presence: true
+
   before_save :convert_duration
 
   private

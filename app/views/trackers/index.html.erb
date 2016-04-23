@@ -14,7 +14,7 @@
   <tbody>
     <% @trackers.each do |tracker| %>
       <tr>
-        <td><%= tracker_duration(tracker.duration) %></td>
+        <td><%= tracker_duration(tracker.duration_time) %></td>
         <td><%= tracker.description %></td>
         <td><%= link_to 'Show', tracker %></td>
         <td><%= link_to 'Edit', edit_tracker_path(tracker) %></td>

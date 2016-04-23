@@ -25,8 +25,7 @@ class TrackersController < ApplicationController
   # POST /trackers
   # POST /trackers.json
   def create
-    @tracker = Tracker.new(tracker_params)
-
+    @tracker = Tracker.new(tracker_params.merge(user: current_user))
     respond_to do |format|
       if @tracker.save
         format.html { redirect_to @tracker, notice: 'Tracker was successfully created.' }
