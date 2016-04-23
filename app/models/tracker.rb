@@ -1,6 +1,7 @@
 class Tracker < ApplicationRecord
   belongs_to :user
 
+  validates :logged_date, presence: true
   validates :duration, presence: true
   validates :description, presence: true
   validates :user_id, presence: true
