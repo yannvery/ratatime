@@ -11,20 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160423204555) do
+ActiveRecord::Schema.define(version: 20160423214109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pgcrypto"
 
-  create_table "trackers", force: :cascade do |t|
+  create_table "trackers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string   "duration",      null: false
     t.string   "description",   null: false
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.integer  "duration_time", null: false
+    t.uuid     "user_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
     t.string   "email",                          null: false
