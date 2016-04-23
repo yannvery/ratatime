@@ -1,12 +1,21 @@
 class Tracker < ApplicationRecord
-  def duration=(value)
-    return write_attribute(:duration, value) if value.is_a? Integer
-    convert_value = convert_minutes_for_duration(value)
-    convert_value ||= convert_hours_and_minutes_for_duration(value)
-    write_attribute(:duration, convert_value)
-  end
+  before_save :convert_duration
 
   private
+
+  def convert_duration
+    convert_value = convert_seconds_for_duration(duration)
+    convert_value ||= convert_minutes_for_duration(duration)
+    convert_value ||= convert_hours_and_minutes_for_duration(duration)
+    self.duration_time = convert_value
+  end
+
+  def convert_seconds_for_duration(value)
+    seconds_regx = /^(?<Seconds>\d+)$/x
+    parts = value.to_s.match(seconds_regx)
+    return parts['Seconds'].to_i if parts && parts['Seconds'].present?
+    false
+  end
 
   def convert_minutes_for_duration(value)
     minutes_regx = /^(?<Minutes>\d+)m$/x
