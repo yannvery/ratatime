@@ -1,3 +1,4 @@
+require 'spec/support/page.rb'
 class SignInPage < Page
   def path
     sign_in_path
