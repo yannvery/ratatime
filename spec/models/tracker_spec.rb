@@ -1,5 +1,11 @@
 require 'rails_helper'
 
+RSpec.describe Tracker, '#valid?' do
+  it { should validate_presence_of(:duration) }
+  it { should validate_presence_of(:description) }
+  it { should validate_presence_of(:project) }
+end
+
 RSpec.describe Tracker, '#save' do
   it 'accepts 10m as an input and convert it to 600 seconds' do
     tracker = build(:tracker)

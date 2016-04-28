@@ -1,12 +1,18 @@
 class Tracker < ApplicationRecord
   belongs_to :user
+  belongs_to :project
 
   validates :logged_date, presence: true
   validates :duration, presence: true
   validates :description, presence: true
+  validates :project_id, presence: true
   validates :user_id, presence: true
 
   before_save :convert_duration
+
+  def project_name
+    project.name if project
+  end
 
   private
 

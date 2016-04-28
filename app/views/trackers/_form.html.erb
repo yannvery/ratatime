@@ -1,6 +1,7 @@
 <%= simple_form_for @tracker do |f| %>
-  <%= f.input :logged_date %>
+  <%= f.input :logged_date, as: :date %>
   <%= f.input :duration %>
+  <%= f.association :project, collection: current_user.projects.order(:name), prompt: "Choose a Project" %>
   <%= f.input :description %>
   <%= f.button :submit %>
 <% end %>

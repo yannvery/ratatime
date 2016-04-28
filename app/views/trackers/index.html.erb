@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Logged date</th>
+      <th>Project</th>
       <th>Duration</th>
       <th>Description</th>
       <th colspan="3"></th>
@@ -16,6 +17,7 @@
     <% @trackers.each do |tracker| %>
       <tr>
         <td><%= tracker.logged_date %></td>
+        <td><%= tracker.project_name %></td>
         <td><%= tracker_duration(tracker.duration_time) %></td>
         <td><%= tracker.description %></td>
         <td><%= link_to 'Show', tracker %></td>
