@@ -5,8 +5,8 @@ class Tracker < ApplicationRecord
   validates :logged_date, presence: true
   validates :duration, presence: true
   validates :description, presence: true
-  validates :project_id, presence: true
-  validates :user_id, presence: true
+  validates :project, presence: true
+  validates :user, presence: true
 
   before_save :convert_duration
 
