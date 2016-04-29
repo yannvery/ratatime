@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '>= 5.0.0.beta3', '< 5.1'
+gem 'rails', '>= 5.0.0.beta4', '< 5.1'
 
 gem 'pg'
 gem 'pgcrypto'
@@ -40,13 +40,12 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 3.5.0.beta3'
   gem 'capybara', :git => 'https://github.com/jnicklas/capybara', :branch => 'master'
   gem 'factory_girl_rails'
 end
 
 group :test do
-  gem 'pry-rails'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'database_cleaner'
   gem 'launchy'

@@ -21,7 +21,7 @@ RSpec.feature 'Add Project' do
     click_link 'New Project'
 
     fill_in 'Name', with: 'New project'
-    click_button('Create project')
+    click_button('Create Project')
 
     expect(page).to have_content('Project was successfully created.')
   end
