@@ -3,14 +3,14 @@ require 'rails_helper'
 RSpec.feature 'list projects' do
   scenario 'as a user' do
     sign_in
-    create(:project, name: 'Peace wolrd', user: create(:user))
+    create(:project, name: 'Peace world', user: create(:user, email: 'another@user.com'))
     create(:project, name: 'Harmony', user: create(:user))
     create(:project, name: 'Master of universe', user: signed_in_user)
 
     visit projects_path
 
     expect(page).to have_content('Master of universe')
-    expect(page).not_to have_content('Peace wolrd')
+    expect(page).not_to have_content('Peace world')
   end
 end
 

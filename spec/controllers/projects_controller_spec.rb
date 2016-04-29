@@ -4,13 +4,13 @@ require 'clearance/rspec'
 RSpec.describe ProjectsController, '#show' do
   context 'When the project does not belongs_to signed_user' do
     it 'return not found' do
-      project = create(:project, user: create(:user))
+      project = create(:project, user: create(:user, email: 'another@user.com'))
       user = create(:user)
       sign_in_as(user)
 
-      get :show, id: project.id
+      get :show, params: { id: project.id }
 
-      expect(response).to be_not_found
+      expect(response.status).to eq 404
     end
   end
 end
