@@ -41,7 +41,7 @@ end
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.5.0.beta3'
-  gem 'capybara', :git => 'https://github.com/jnicklas/capybara', :branch => 'master'
+  gem 'capybara', git: 'https://github.com/jnicklas/capybara', branch: 'master'
   gem 'factory_girl_rails'
 end
 
@@ -49,7 +49,7 @@ group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'database_cleaner'
   gem 'launchy'
-  gem 'simplecov', :require => false
+  gem 'simplecov', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
