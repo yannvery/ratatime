@@ -2,12 +2,12 @@ require 'rails_helper'
 
 RSpec.feature 'list projects' do
   scenario 'as a user' do
-    sign_in
     create(:project, name: 'Peace world', user: create(:user, email: 'another@user.com'))
     create(:project, name: 'Harmony', user: create(:user))
+    signed_in_user = create(:user, email: 'signed@user.com')
     create(:project, name: 'Master of universe', user: signed_in_user)
 
-    visit projects_path
+    visit projects_path(as: signed_in_user)
 
     expect(page).to have_content('Master of universe')
     expect(page).not_to have_content('Peace world')
@@ -16,8 +16,8 @@ end
 
 RSpec.feature 'Add Project' do
   scenario 'as a user' do
-    sign_in
-    visit projects_path
+    signed_in_user = create(:user, email: 'signed@user.com')
+    visit projects_path(as: signed_in_user)
     click_link 'New Project'
 
     fill_in 'Name', with: 'New project'
@@ -29,9 +29,9 @@ end
 
 RSpec.feature 'Show project' do
   scenario 'as a user' do
-    sign_in
+    signed_in_user = create(:user, email: 'signed@user.com')
     project = create(:project, name: 'Master of universe', user: signed_in_user)
-    visit project_path(project)
+    visit project_path(project, as: signed_in_user)
 
     expect(page).to have_content('Master of universe')
   end

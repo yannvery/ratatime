@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.feature 'Add tracker' do
   scenario 'as a user' do
-    sign_in
+    signed_in_user = create(:user, email: 'signed@user.com')
     create(:project, name: 'Master of the universe', user: signed_in_user)
-    visit new_tracker_path
+    visit new_tracker_path(as: signed_in_user)
 
     fill_in('tracker_duration', with: '10m')
     fill_in('tracker_description', with: 'This is a test')
@@ -17,9 +17,9 @@ end
 
 RSpec.feature 'Show tracker' do
   scenario 'With a readable duration' do
-    sign_in
+    signed_in_user = create(:user, email: 'signed@user.com')
     tracker = create(:tracker, duration: '15m', description: 'Description')
-    visit tracker_path(tracker)
+    visit tracker_path(tracker, as: signed_in_user)
 
     expect(page).to have_content('15 minutes')
   end
