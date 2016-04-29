@@ -3,7 +3,7 @@ class CreateProjects < ActiveRecord::Migration[5.0]
     enable_extension 'pgcrypto' unless extension_enabled?('pgcrypto')
     create_table :projects, id: :uuid, default: 'gen_random_uuid()' do |t|
       t.string :name
-      t.references :user
+      t.uuid :user_id
       t.timestamps
     end
   end
