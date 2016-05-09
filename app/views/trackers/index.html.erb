@@ -1,31 +1,77 @@
-<h1>Trackers</h1>
 
-<table>
+    <h1>
+      <span>Trackers</span>
+      <%= link_to 'New Tracker', new_tracker_path, class: 'btn btn-primary pull-right' %>
+    </h1>
+
+<table class= "table">
   <thead>
     <tr>
       <th>Logged date</th>
       <th>Project</th>
       <th>Duration</th>
       <th>Description</th>
-      <th colspan="3"></th>
+      <th>Actions</th>
     </tr>
   </thead>
 
   <tbody>
     <% @trackers.each do |tracker| %>
       <tr>
+        <td>
+          <div style="width: 50px;">
+            <canvas id="js-tracker-chart-<%= "#{tracker.id}" %>"></canvas>
+          </div>
+        </td>
         <td><%= tracker.logged_date %></td>
         <td><%= tracker.project_name %></td>
         <td><%= tracker_duration(tracker.duration_time) %></td>
         <td><%= tracker.description %></td>
-        <td><%= link_to 'Show', tracker %></td>
-        <td><%= link_to 'Edit', edit_tracker_path(tracker) %></td>
-        <td><%= link_to 'Destroy', tracker, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to raw('<i title="" data-toggle="tooltip" data-placement="top" class="glyphicon glyphicon-link" data-original-title="Show"></i>'), tracker, class: 'text-info' %>
+          <%= link_to raw('<i title="" data-toggle="tooltip" data-placement="top" class="glyphicon glyphicon-pencil" data-original-title="Edit"></i>'), edit_tracker_path(tracker), class: 'text-warning ' %>
+          <%= link_to raw('<i title="" data-toggle="tooltip" data-placement="top" class="glyphicon glyphicon-trash" data-original-title="Delete"></i>'), tracker, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
+        </td>
       </tr>
+
+        <script>
+          duration_time = <%= tracker.duration_time %>;
+          value = duration_time / 3600;
+          var ctx = document.getElementById("js-tracker-chart-<%= "#{tracker.id}" %>");
+          var data = {
+            labels: [
+              "",
+              "",
+            ],
+            datasets: [
+              {
+                data: [value, 12 - value],
+                backgroundColor: [
+                  "#FF6384"
+                ],
+                hoverBackgroundColor: [
+                  "#FF6384"
+                ],
+                hoverBorderWidth:  [
+                  0,
+                  0
+                ],
+                borderWidth: [0, 0],
+              }]
+          };
+          var myChart = new Chart(ctx, {
+              type: 'pie',
+              data: data,
+              options: {
+                tooltips: {
+                  enabled: false
+                }
+              }
+          });
+        </script>
+
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Tracker', new_tracker_path %>

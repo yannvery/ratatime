@@ -26,6 +26,7 @@ gem 'jbuilder', '~> 2.0'
 
 gem 'clearance'
 gem 'simple_form'
+gem 'bootstrap-sass', '~> 3.3.6'
 
 group :development do
   gem 'listen', '~> 3.0.5'
