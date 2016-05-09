@@ -8,6 +8,8 @@ class Tracker < ApplicationRecord
   validates :project, presence: true
   validates :user, presence: true
 
+  scope :by_logged_date, -> { order(logged_date: :desc) }
+
   before_save :convert_duration
 
   def project_name
