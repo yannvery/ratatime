@@ -15,4 +15,9 @@
       <%= form.submit %>
     </div>
   <% end %>
+  <div class="other-links">
+    <% if signed_out? %>
+      <%= link_to t("layouts.application.sign_in"), sign_in_path %>
+    <% end %>
+  </div>
 </div>

@@ -35,6 +35,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'pry-rails'
   gem 'pry-doc'
+  gem 'letter_opener'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'quiet_assets'
@@ -50,6 +51,7 @@ group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'database_cleaner'
   gem 'launchy'
+  gem 'poltergeist'
   gem 'simplecov', require: false
 end
 

@@ -70,6 +70,7 @@ GEM
       bcrypt
       email_validator (~> 1.4)
       rails (>= 3.1)
+    cliver (0.3.2)
     coderay (1.1.1)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
@@ -106,6 +107,8 @@ GEM
     json (1.8.3)
     launchy (2.4.3)
       addressable (~> 2.3)
+    letter_opener (1.4.1)
+      launchy (~> 2.2)
     listen (3.0.6)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9.7)
@@ -125,6 +128,11 @@ GEM
       mini_portile2 (~> 2.0.0.rc2)
     pg (0.18.4)
     pgcrypto (0.4.1)
+    poltergeist (1.9.0)
+      capybara (~> 2.1)
+      cliver (~> 0.3.1)
+      multi_json (~> 1.0)
+      websocket-driver (>= 0.2.0)
     pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -249,9 +257,11 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   launchy
+  letter_opener
   listen (~> 3.0.5)
   pg
   pgcrypto
+  poltergeist
   pry-doc
   pry-rails
   puma

@@ -1,5 +1,5 @@
 <%= form_for :session, url: session_path, html: {class: 'form-signin'} do |form| %>
-  <h2 class="form-signin-heading">Please sign in</h2>
+  <h2 class="form-signin-heading">Sign in</h2>
   <%= form.text_field :email, type: 'email', placeholder: 'Email address', class: 'form-control' %>
   <%= form.password_field :password, placeholder: 'Password', class: 'form-control' %>
   <%= form.submit 'Sign in', class: 'btn btn-lg btn-primary btn-block' %>
