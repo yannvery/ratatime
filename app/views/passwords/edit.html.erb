@@ -1,18 +1,22 @@
-<div id="clearance" class="password-reset">
+<div id="clearance" class="password-reset form-signin">
   <h2><%= t(".title") %></h2>
 
   <p><%= t(".description") %></p>
-
   <%= form_for :password_reset,
         url: user_password_path(@user, token: @user.confirmation_token),
         html: { method: :put } do |form| %>
-    <div class="password-field">
+    <div class="form-group">
       <%= form.label :password %>
-      <%= form.password_field :password %>
+      <%= form.password_field :password, class: "form-control" %>
     </div>
 
     <div class="submit-field">
-      <%= form.submit %>
+      <%= form.submit class: "btn btn-lg btn-primary btn-block" %>
     </div>
   <% end %>
+  <div class="other-links">
+    <% if signed_out? %>
+      <%= link_to t("layouts.application.sign_in"), sign_in_path %>
+    <% end %>
+  </div>
 </div>

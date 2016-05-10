@@ -1,24 +1,48 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <%= javascript_include_tag 'application' %>
-  <%= csrf_meta_tag %>
-</head>
-<body>
-  <div id="header">
-    <% if signed_in? -%>
-      <%= button_to t(".sign_out"), sign_out_path, method: :delete %>
-    <% else -%>
-      <%= link_to t(".sign_in"), sign_in_path %>
-    <% end -%>
-  </div>
+<html lang="en">
+  <head>
+    <%= javascript_include_tag 'application' %>
+    <%= stylesheet_link_tag 'application' %>
+    <%= csrf_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Ratatime</a>
+        </div>
 
-  <div id="flash">
-    <% flash.each do |key, value| -%>
-      <div id="flash_<%= key %>"><%=h value %></div>
-    <% end %>
-  </div>
+        <% if signed_in? %>
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <%= active_li_link_to 'Trackers', trackers_path, {}, {controller: 'trackers'} %>
+              <%= active_li_link_to 'Projects', projects_path, {}, {controller: 'projects'} %>
+            </ul>
 
-  <%= yield %>
-</body>
+            <ul class="nav navbar-nav navbar-right">
+              <li><%= link_to 'Sign out', sign_out_path, method: :delete %></li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        <% end %>
+      </div><!-- /.container-fluid -->
+    </nav>
+    <div id="flash">
+      <% flash.each do |key, value| -%>
+        <div id="flash_<%= key %>"><%=h value %></div>
+      <% end %>
+    </div>
+    <div class="container-fluid">
+      <%= yield %>
+    </div>
+    <%= yield :charts_js %>
+  </body>
 </html>

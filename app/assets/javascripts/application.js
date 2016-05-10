@@ -12,5 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap-sprockets
+//= require chart
 //= require turbolinks
 //= require_tree .
+Chart.defaults.global.legend.display = false;
