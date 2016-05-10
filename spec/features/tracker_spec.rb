@@ -1,5 +1,17 @@
 require 'rails_helper'
 
+RSpec.feature 'List projects' do
+  scenario 'that only belongs to user' do
+    signed_in_user = create(:user, email: 'signed@user.com')
+    create(:tracker, duration: '15m', description: 'It\' mine', user: signed_in_user)
+    create(:tracker, duration: '30m', description: 'What\'s that ?')
+
+    visit trackers_path(as: signed_in_user)
+    expect(page).to have_content('15 minutes')
+    expect(page).to_not have_content('30 minutes')
+  end
+end
+
 RSpec.feature 'Add tracker' do
   scenario 'as a user' do
     signed_in_user = create(:user, email: 'signed@user.com')
@@ -16,7 +28,7 @@ RSpec.feature 'Add tracker' do
 end
 
 RSpec.feature 'Show tracker' do
-  scenario 'With a readable duration' do
+  scenario 'with a readable duration' do
     signed_in_user = create(:user, email: 'signed@user.com')
     tracker = create(:tracker, duration: '15m', description: 'Description')
     visit tracker_path(tracker, as: signed_in_user)
