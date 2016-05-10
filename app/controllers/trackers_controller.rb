@@ -1,6 +1,7 @@
 class TrackersController < ApplicationController
   before_action :require_login
   before_action :set_tracker, only: [:show, :edit, :update, :destroy]
+  after_action :verify_authorized, except: [:index, :new, :create]
 
   # GET /trackers
   # GET /trackers.json
@@ -21,6 +22,7 @@ class TrackersController < ApplicationController
 
   # GET /trackers/1/edit
   def edit
+    authorize @tracker
   end
 
   # POST /trackers
@@ -41,6 +43,7 @@ class TrackersController < ApplicationController
   # PATCH/PUT /trackers/1
   # PATCH/PUT /trackers/1.json
   def update
+    authorize @tracker
     respond_to do |format|
       if @tracker.update(tracker_params)
         format.html { redirect_to @tracker, notice: 'Tracker was successfully updated.' }

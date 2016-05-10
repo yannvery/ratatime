@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :require_login
   before_action :set_project, only: [:show, :edit, :update, :destroy]
+  after_action :verify_authorized, except: [:index, :new, :create]
 
   # GET /projects
   # GET /projects.json
@@ -21,6 +22,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
+    authorize @project
   end
 
   # POST /projects
@@ -41,6 +43,7 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1
   # PATCH/PUT /projects/1.json
   def update
+    authorize @project
     respond_to do |format|
       if @project.update(project_params)
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }

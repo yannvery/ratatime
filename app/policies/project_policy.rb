@@ -9,4 +9,16 @@ class ProjectPolicy
   def show?
     project.user_id == user.id
   end
+
+  def edit?
+    project.user_id == user.id
+  end
+
+  def update?
+    project.user_id == user.id
+  end
+
+  def destroy?
+    project.user_id == user.id
+  end
 end
