@@ -11,6 +11,7 @@ class TrackersController < ApplicationController
   # GET /trackers/1
   # GET /trackers/1.json
   def show
+    authorize @tracker
   end
 
   # GET /trackers/new

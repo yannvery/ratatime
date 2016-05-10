@@ -25,6 +25,7 @@ gem 'turbolinks', '~> 5.x'
 gem 'jbuilder', '~> 2.0'
 
 gem 'clearance'
+gem 'pundit'
 gem 'simple_form'
 gem 'bootstrap-sass', '~> 3.3.6'
 

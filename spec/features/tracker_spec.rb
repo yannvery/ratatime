@@ -28,11 +28,21 @@ RSpec.feature 'Add tracker' do
 end
 
 RSpec.feature 'Show tracker' do
-  scenario 'with a readable duration' do
+  context 'as owner' do
+    scenario 'with a readable duration' do
+      signed_in_user = create(:user, email: 'signed@user.com')
+      tracker = create(:tracker, duration: '15m', description: 'Description', user: signed_in_user)
+      visit tracker_path(tracker, as: signed_in_user)
+
+      expect(page).to have_content('15 minutes')
+    end
+  end
+
+  scenario 'not belongs to user' do
     signed_in_user = create(:user, email: 'signed@user.com')
     tracker = create(:tracker, duration: '15m', description: 'Description')
     visit tracker_path(tracker, as: signed_in_user)
 
-    expect(page).to have_content('15 minutes')
+    expect(page).to have_content('You are not authorized to perform this action.')
   end
 end

@@ -27,12 +27,21 @@ RSpec.feature 'Add Project' do
 end
 
 RSpec.feature 'Show project' do
-  scenario 'as a user' do
+  scenario 'as owner' do
     signed_in_user = create(:user, email: 'signed@user.com')
     project = create(:project, name: 'Master of universe', user: signed_in_user)
 
     visit project_path(project, as: signed_in_user)
 
     expect(page).to have_content('Master of universe')
+  end
+
+  scenario 'not belongs to user' do
+    signed_in_user = create(:user, email: 'signed@user.com')
+    project = create(:project, name: 'Master of universe')
+
+    visit project_path(project, as: signed_in_user)
+
+    expect(page).to have_content('You are not authorized to perform this action.')
   end
 end
