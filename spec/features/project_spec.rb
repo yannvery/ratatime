@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'list projects' do
+RSpec.feature 'List projects' do
   scenario 'that only belongs to user' do
     signed_in_user = create(:user, email: 'signed@user.com')
     create(:project, name: 'It\'s mine', user: signed_in_user)
@@ -13,7 +13,7 @@ RSpec.feature 'list projects' do
   end
 end
 
-RSpec.feature 'Add Project' do
+RSpec.feature 'Create a project' do
   scenario 'as a user' do
     signed_in_user = create(:user, email: 'signed@user.com')
     visit projects_path(as: signed_in_user)
@@ -23,6 +23,22 @@ RSpec.feature 'Add Project' do
     click_button('Create Project')
 
     expect(page).to have_content('Project was successfully created.')
+    expect(current_path).to eq projects_path
+  end
+end
+
+RSpec.feature 'Update a project' do
+  scenario 'as a user' do
+    signed_in_user = create(:user, email: 'signed@user.com')
+    project = create(:project, name: 'Master of universe', user: signed_in_user)
+    visit projects_path(as: signed_in_user)
+    click_link("rat-edit-project-#{project.id}")
+
+    fill_in 'Name', with: 'Master of the world'
+    click_button('Update Project')
+
+    expect(page).to have_content('Project was successfully updated.')
+    expect(current_path).to eq projects_path
   end
 end
 

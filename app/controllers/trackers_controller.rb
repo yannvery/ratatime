@@ -31,7 +31,7 @@ class TrackersController < ApplicationController
     @tracker = Tracker.new(tracker_params.merge(user: current_user))
     respond_to do |format|
       if @tracker.save
-        format.html { redirect_to @tracker, notice: 'Tracker was successfully created.' }
+        format.html { redirect_to trackers_url, notice: 'Tracker was successfully created.' }
         format.json { render :show, status: :created, location: @tracker }
       else
         format.html { render :new }
@@ -46,7 +46,7 @@ class TrackersController < ApplicationController
     authorize @tracker
     respond_to do |format|
       if @tracker.update(tracker_params)
-        format.html { redirect_to @tracker, notice: 'Tracker was successfully updated.' }
+        format.html { redirect_to trackers_url, notice: 'Tracker was successfully updated.' }
         format.json { render :show, status: :ok, location: @tracker }
       else
         format.html { render :edit }

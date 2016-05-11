@@ -30,7 +30,7 @@
         <td><%= tracker.description %></td>
         <td>
           <%= link_to raw('<i title="" data-toggle="tooltip" data-placement="top" class="glyphicon glyphicon-link" data-original-title="Show"></i>'), tracker, class: 'text-info' %>
-          <%= link_to raw('<i title="" data-toggle="tooltip" data-placement="top" class="glyphicon glyphicon-pencil" data-original-title="Edit"></i>'), edit_tracker_path(tracker), class: 'text-warning ' %>
+          <%= link_to raw('<i title="" data-toggle="tooltip" data-placement="top" class="glyphicon glyphicon-pencil" data-original-title="Edit"></i>'), edit_tracker_path(tracker), id: "rat-edit-tracker-#{tracker.id}", class: 'text-warning ' %>
           <%= link_to raw('<i title="" data-toggle="tooltip" data-placement="top" class="glyphicon glyphicon-trash" data-original-title="Delete"></i>'), tracker, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
         </td>
       </tr>

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'List projects' do
+RSpec.feature 'List trackers' do
   scenario 'that only belongs to user' do
     signed_in_user = create(:user, email: 'signed@user.com')
     create(:tracker, duration: '15m', description: 'It\' mine', user: signed_in_user)
@@ -12,7 +12,7 @@ RSpec.feature 'List projects' do
   end
 end
 
-RSpec.feature 'Add tracker' do
+RSpec.feature 'Create tracker' do
   scenario 'as a user' do
     signed_in_user = create(:user, email: 'signed@user.com')
     create(:project, name: 'Master of the universe', user: signed_in_user)
@@ -24,6 +24,21 @@ RSpec.feature 'Add tracker' do
     click_button('Create Tracker')
 
     expect(page).to have_content('Tracker was successfully created.')
+  end
+end
+
+RSpec.feature 'Update a tracker' do
+  scenario 'as a user' do
+    signed_in_user = create(:user, email: 'signed@user.com')
+    tracker = create(:tracker, duration: '15m', user: signed_in_user)
+    visit trackers_path(as: signed_in_user)
+    click_link("rat-edit-tracker-#{tracker.id}")
+
+    fill_in 'tracker_duration', with: '1:00'
+    click_button('Update Tracker')
+
+    expect(page).to have_content('Tracker was successfully updated.')
+    expect(current_path).to eq trackers_path
   end
 end
 
