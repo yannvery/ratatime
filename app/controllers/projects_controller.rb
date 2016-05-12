@@ -1,18 +1,12 @@
 class ProjectsController < ApplicationController
   before_action :require_login
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:edit, :update, :destroy]
   after_action :verify_authorized, except: [:index, :new, :create]
 
   # GET /projects
   # GET /projects.json
   def index
     @projects = Project.by_user(current_user).all
-  end
-
-  # GET /projects/1
-  # GET /projects/1.json
-  def show
-    authorize @project
   end
 
   # GET /projects/new

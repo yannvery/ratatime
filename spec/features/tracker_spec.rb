@@ -42,7 +42,7 @@ RSpec.feature 'Update a tracker' do
   end
 end
 
-RSpec.feature 'Show tracker' do
+RSpec.xfeature 'Show tracker' do
   context 'as owner' do
     scenario 'with a readable duration' do
       signed_in_user = create(:user, email: 'signed@user.com')

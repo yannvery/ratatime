@@ -42,7 +42,7 @@ RSpec.feature 'Update a project' do
   end
 end
 
-RSpec.feature 'Show project' do
+RSpec.xfeature 'Show project' do
   scenario 'as owner' do
     signed_in_user = create(:user, email: 'signed@user.com')
     project = create(:project, name: 'Master of universe', user: signed_in_user)

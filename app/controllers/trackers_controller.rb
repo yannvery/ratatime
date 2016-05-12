@@ -1,18 +1,12 @@
 class TrackersController < ApplicationController
   before_action :require_login
-  before_action :set_tracker, only: [:show, :edit, :update, :destroy]
+  before_action :set_tracker, only: [:edit, :update, :destroy]
   after_action :verify_authorized, except: [:index, :new, :create]
 
   # GET /trackers
   # GET /trackers.json
   def index
     @trackers = Tracker.by_user(current_user).by_logged_date.all
-  end
-
-  # GET /trackers/1
-  # GET /trackers/1.json
-  def show
-    authorize @tracker
   end
 
   # GET /trackers/new

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :trackers
-  resources :projects
+  resources :trackers, except: :show
+  resources :projects, except: :show
   root 'trackers#index'
 end
