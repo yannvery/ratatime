@@ -1,16 +1,12 @@
 class TrackersController < ApplicationController
   before_action :require_login
-  before_action :set_tracker, only: [:show, :edit, :update, :destroy]
+  before_action :set_tracker, only: [:edit, :update, :destroy]
+  after_action :verify_authorized, except: [:index, :new, :create]
 
   # GET /trackers
   # GET /trackers.json
   def index
-    @trackers = Tracker.by_logged_date.all
-  end
-
-  # GET /trackers/1
-  # GET /trackers/1.json
-  def show
+    @trackers = Tracker.by_user(current_user).by_logged_date.all
   end
 
   # GET /trackers/new
@@ -20,6 +16,7 @@ class TrackersController < ApplicationController
 
   # GET /trackers/1/edit
   def edit
+    authorize @tracker
   end
 
   # POST /trackers
@@ -28,7 +25,7 @@ class TrackersController < ApplicationController
     @tracker = Tracker.new(tracker_params.merge(user: current_user))
     respond_to do |format|
       if @tracker.save
-        format.html { redirect_to @tracker, notice: 'Tracker was successfully created.' }
+        format.html { redirect_to trackers_url, notice: 'Tracker was successfully created.' }
         format.json { render :show, status: :created, location: @tracker }
       else
         format.html { render :new }
@@ -40,9 +37,10 @@ class TrackersController < ApplicationController
   # PATCH/PUT /trackers/1
   # PATCH/PUT /trackers/1.json
   def update
+    authorize @tracker
     respond_to do |format|
       if @tracker.update(tracker_params)
-        format.html { redirect_to @tracker, notice: 'Tracker was successfully updated.' }
+        format.html { redirect_to trackers_url, notice: 'Tracker was successfully updated.' }
         format.json { render :show, status: :ok, location: @tracker }
       else
         format.html { render :edit }

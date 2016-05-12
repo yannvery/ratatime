@@ -1,16 +1,12 @@
 class ProjectsController < ApplicationController
   before_action :require_login
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:edit, :update, :destroy]
+  after_action :verify_authorized, except: [:index, :new, :create]
 
   # GET /projects
   # GET /projects.json
   def index
-    @projects = current_user.projects
-  end
-
-  # GET /projects/1
-  # GET /projects/1.json
-  def show
+    @projects = Project.by_user(current_user).all
   end
 
   # GET /projects/new
@@ -20,6 +16,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
+    authorize @project
   end
 
   # POST /projects
@@ -28,7 +25,7 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params.merge(user: current_user))
     respond_to do |format|
       if @project.save
-        format.html { redirect_to @project, notice: 'Project was successfully created.' }
+        format.html { redirect_to projects_url, notice: 'Project was successfully created.' }
         format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new }
@@ -40,9 +37,10 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1
   # PATCH/PUT /projects/1.json
   def update
+    authorize @project
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
+        format.html { redirect_to projects_url, notice: 'Project was successfully updated.' }
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }
@@ -64,7 +62,7 @@ class ProjectsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project
-      @project = Project.find_by!(id: params[:id], user: current_user)
+      @project = Project.find_by!(id: params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

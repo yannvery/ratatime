@@ -35,12 +35,12 @@
         <% end %>
       </div><!-- /.container-fluid -->
     </nav>
-    <div id="flash">
-      <% flash.each do |key, value| -%>
-        <div id="flash_<%= key %>"><%=h value %></div>
-      <% end %>
-    </div>
     <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <%= render partial: "layouts/flash_messages", flash: flash %>
+        </div>
+      </div>
       <%= yield %>
     </div>
     <%= yield :charts_js %>

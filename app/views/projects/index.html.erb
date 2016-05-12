@@ -15,10 +15,9 @@
     <% @projects.each do |project| %>
       <tr>
         <td><%= project.name %></td>
-        <td>
-          <%= link_to raw('<i title="" data-toggle="tooltip" data-placement="top" class="glyphicon glyphicon-link" data-original-title="Show"></i>'), project, class: 'text-info' %>
-        <%= link_to raw('<i title="" data-toggle="tooltip" data-placement="top" class="glyphicon glyphicon-pencil" data-original-title="Edit"></i>'), edit_project_path(project), class: 'text-warning ' %>
-        <%= link_to raw('<i title="" data-toggle="tooltip" data-placement="top" class="glyphicon glyphicon-trash" data-original-title="Delete"></i>'), project, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
+        <td class="pull-right">
+          <%= link_to raw('<i title="" data-toggle="tooltip" data-placement="top" class="glyphicon glyphicon-pencil" data-original-title="Edit"></i>'), edit_project_path(project), id: "rat-edit-project-#{project.id}", class: 'text-warning' %>
+          <%= link_to raw('<i title="" data-toggle="tooltip" data-placement="top" class="glyphicon glyphicon-trash" data-original-title="Delete"></i>'), project, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
       </td>
       </tr>
     <% end %>

@@ -1,4 +1,5 @@
 class Tracker < ApplicationRecord
+  include UserScopesConcern
   belongs_to :user
   belongs_to :project
 
