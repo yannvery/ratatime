@@ -15,5 +15,8 @@
 //= require bootstrap-sprockets
 //= require chart
 //= require turbolinks
-//= require_tree .
+//= require react
+//= require react_ujs
+//= require_tree ./components
+
 Chart.defaults.global.legend.display = false;

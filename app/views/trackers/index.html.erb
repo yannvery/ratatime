@@ -1,8 +1,8 @@
-
-    <h1>
-      <span>Trackers</span>
-      <%= link_to 'New Tracker', new_tracker_path, class: 'btn btn-primary pull-right' %>
-    </h1>
+<%= react_component 'TrackersBox', { data: @trackers } %>
+<h1>
+  <span>Trackers</span>
+  <%= link_to 'New Tracker', new_tracker_path, class: 'btn btn-primary pull-right' %>
+</h1>
 
 <table class= "table">
   <thead>

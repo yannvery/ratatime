@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '>= 5.0.0.beta4', '< 5.1'
+gem 'rails', '>= 5.0.0.rc1', '< 5.1'
 
 gem 'pg'
 gem 'pgcrypto'
@@ -28,6 +28,7 @@ gem 'clearance'
 gem 'pundit'
 gem 'simple_form'
 gem 'bootstrap-sass', '~> 3.3.6'
+gem 'react-rails'
 
 group :development do
   gem 'listen', '~> 3.0.5'
