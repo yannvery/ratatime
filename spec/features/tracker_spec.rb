@@ -7,8 +7,8 @@ RSpec.feature 'List trackers' do
     create(:tracker, duration: '30m', description: 'What\'s that ?')
 
     visit trackers_path(as: signed_in_user)
-    expect(page).to have_content('15 minutes')
-    expect(page).to_not have_content('30 minutes')
+    expect(page).to have_content('15m')
+    expect(page).to_not have_content('30m')
   end
 end
 

@@ -7,6 +7,7 @@ class TrackersController < ApplicationController
   # GET /trackers.json
   def index
     @trackers = Tracker.by_user(current_user).by_logged_date.all
+    @tracker = Tracker.new
   end
 
   # GET /trackers/new

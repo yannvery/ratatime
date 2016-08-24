@@ -1,77 +1,87 @@
+<div id='rtt-new-tracker' class="well">
+  <%= simple_form_for @tracker, html: { :class => 'form-inline' }, defaults: { label: false }, remote: true do |f| %>
+    <%= f.input :logged_date, as: :date, placeholder: 'Date', wrapper_html: { class: 'rtt-inline-wrapper' } %>
+    <%= f.association :project, collection: current_user.projects.order(:name), prompt: "Choose a Project", wrapper_html: { class: 'rtt-inline-wrapper' } %>
+    <%= f.input :duration, placeholder: 'Duration', wrapper_html: { class: 'rtt-inline-input-wrapper rtt-inline-wrapper' } %>
+    <%= f.input :description, placeholder: 'Description', wrapper_html: { class: 'rtt-inline-input-wrapper rtt-inline-input-wrapper-description rtt-inline-wrapper' } %>
+    <%= f.button :submit, class: 'pull-right' %>
+  <% end %>
+</div>
 
-    <h1>
-      <span>Trackers</span>
-      <%= link_to 'New Tracker', new_tracker_path, class: 'btn btn-primary pull-right' %>
-    </h1>
-
-<table class= "table">
-  <thead>
-    <tr>
-      <th></th>
-      <th>Logged date</th>
-      <th>Project</th>
-      <th>Duration</th>
-      <th>Description</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @trackers.each do |tracker| %>
+<div id="rtt-last-five-days" class="well">
+  <table class= "table" style="text-align: center">
+    <thead>
       <tr>
-        <td>
-          <div style="width: 50px;">
-            <canvas id="js-tracker-chart-<%= "#{tracker.id}" %>"></canvas>
-          </div>
-        </td>
-        <td><%= tracker.logged_date %></td>
-        <td><%= tracker.project_name %></td>
-        <td><%= tracker_duration(tracker.duration_time) %></td>
-        <td><%= tracker.description %></td>
-        <td>
-          <%= link_to raw('<i title="" data-toggle="tooltip" data-placement="top" class="glyphicon glyphicon-pencil" data-original-title="Edit"></i>'), edit_tracker_path(tracker), id: "rat-edit-tracker-#{tracker.id}", class: 'text-warning ' %>
-          <%= link_to raw('<i title="" data-toggle="tooltip" data-placement="top" class="glyphicon glyphicon-trash" data-original-title="Delete"></i>'), tracker, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
-        </td>
+        <% ((4.days.ago.to_date)..(DateTime.now.to_date)).each do |day| %>
+        <th class="text-center"><%= day %></th>
+        <% end %>
       </tr>
-
-        <script>
-          duration_time = <%= tracker.duration_time %>;
-          value = duration_time / 3600;
-          var ctx = document.getElementById("js-tracker-chart-<%= "#{tracker.id}" %>");
-          var data = {
-            labels: [
-              "",
-              "",
-            ],
-            datasets: [
-              {
-                data: [value, 12 - value],
-                backgroundColor: [
-                  "#FF6384"
-                ],
-                hoverBackgroundColor: [
-                  "#FF6384"
-                ],
-                hoverBorderWidth:  [
-                  0,
-                  0
-                ],
-                borderWidth: [0, 0],
-              }]
-          };
-          var myChart = new Chart(ctx, {
-              type: 'pie',
-              data: data,
-              options: {
-                tooltips: {
-                  enabled: false
+    </thead>
+    <tbody>
+      <tr class="text-center">
+        <% ((4.days.ago.to_date)..(DateTime.now.to_date)).each do |day| %>
+          <td>
+            <div style="width: 50px; margin:auto">
+              <canvas id="js-tracker-day-chart-<%= "#{day.to_s}" %>"></canvas>
+            </div>
+          </td>
+          <script>
+            duration_time = <%= @trackers.where(logged_date: day).inject(0) { |sum, t| sum + t.duration_time } %>;
+            value = duration_time / 3600;
+            var ctx = document.getElementById("js-tracker-day-chart-<%= "#{day.to_s}" %>");
+            var data = {
+              labels: [
+                "",
+                "",
+              ],
+              datasets: [
+                {
+                  data: [value, 12 - value],
+                  backgroundColor: [
+                    "#FF6384"
+                  ],
+                  hoverBackgroundColor: [
+                    "#FF6384"
+                  ],
+                  hoverBorderWidth:  [
+                    0,
+                    0
+                  ],
+                  borderWidth: [0, 0],
+                }]
+            };
+            var myChart = new Chart(ctx, {
+                type: 'pie',
+                data: data,
+                options: {
+                  tooltips: {
+                    enabled: false
+                  }
                 }
-              }
-          });
-        </script>
+            });
+          </script>
+        <% end %>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-    <% end %>
-  </tbody>
-</table>
-
+<div id="rtt-log-entries" class="well">
+  <table class= "table borderless">
+    <tbody>
+      <% @trackers.each do |tracker| %>
+        <tr class="js-clickable-row" data-href= "<%= edit_tracker_path(tracker) %>">
+          <td><%= tracker.duration %></td>
+          <td><%= tracker.project_name %></td>
+          <td><%= tracker.description %></td>
+          <td><%= tracker.logged_date %></td>
+          <td class="actions">
+            <%= link_to raw('<i title="" data-toggle="tooltip" data-placement="top" class="glyphicon glyphicon-pencil" data-original-title="Edit"></i>'), edit_tracker_path(tracker), id: "rat-edit-tracker-#{tracker.id}", class: 'text-warning ' %>
+            <%= link_to raw('<i title="" data-toggle="tooltip" data-placement="top" class="glyphicon glyphicon-trash" data-original-title="Delete"></i>'), tracker, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 <br>

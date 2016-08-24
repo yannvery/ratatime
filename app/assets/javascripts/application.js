@@ -17,3 +17,8 @@
 //= require turbolinks
 //= require_tree .
 Chart.defaults.global.legend.display = false;
+jQuery(document).ready(function($) {
+    $(".js-clickable-row").click(function() {
+        window.document.location = $(this).data("href");
+    });
+});

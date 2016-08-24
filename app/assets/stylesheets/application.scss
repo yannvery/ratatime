@@ -14,6 +14,7 @@
 // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "materialize";
 
 
 .form-signin {
@@ -42,4 +43,36 @@
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+.rtt-inline-input-wrapper {
+  width: 20%;
+}
+
+.rtt-inline-input-wrapper-description {
+  width: 30%;
+}
+
+.rtt-inline-input-wrapper > input{
+  width: 100% !important;
+}
+
+.rtt-inline-wrapper {
+  margin-right: 20px;
+}
+
+#rtt-log-entries table td.actions{
+    opacity: 0;
+}
+
+#rtt-log-entries table tr:hover {
+    cursor: pointer;
+}
+
+#rtt-log-entries table tr:hover td.actions{
+    opacity: 1;
+}
+
+.borderless td, .borderless th {
+  border: none !important;
 }
