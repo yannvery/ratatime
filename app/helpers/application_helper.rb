@@ -8,18 +8,18 @@ module ApplicationHelper
     end
   end
 
-  def bootstrap_class_for(flash_type)
+  def materialize_class_for(flash_type)
     case flash_type.to_sym
     when :success
-      'alert-success'
+      'teal'
     when :error
-      'alert-error'
+      'red'
     when :alert
-      'alert-block'
+      'orange'
     when :notice
-      'alert-info'
+      'blue'
     else
-      flash_type.to_s
+      'grey'
     end
   end
 end

@@ -16,8 +16,7 @@ end
 RSpec.feature 'Create a project' do
   scenario 'as a user' do
     signed_in_user = create(:user, email: 'signed@user.com')
-    visit projects_path(as: signed_in_user)
-    click_link 'New Project'
+    visit new_project_path(as: signed_in_user)
 
     fill_in 'Name', with: 'New project'
     click_button('Create Project')

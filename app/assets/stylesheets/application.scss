@@ -12,10 +12,10 @@
  *
  */
 // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
-@import "bootstrap-sprockets";
-@import "bootstrap";
-@import "materialize";
 
+@import "materialize";
+@import "materialize-colorpicker";
+@import "ratatime";
 
 .form-signin {
   max-width: 330px;
@@ -61,15 +61,24 @@
   margin-right: 20px;
 }
 
-#rtt-log-entries table td.actions{
-    opacity: 0;
+.rtt-table table td.actions {
+  opacity: 0;
 }
 
-#rtt-log-entries table tr:hover {
+.rtt-table table td.actions a {
+  color: #9575CD;
+}
+
+.rtt-table table td.actions a:hover {
+  color: #4527A0;
+}
+
+.rtt-table table tr:hover {
     cursor: pointer;
+    background-color: #EDE7F6;
 }
 
-#rtt-log-entries table tr:hover td.actions{
+.rtt-table table tr:hover td.actions{
     opacity: 1;
 }
 

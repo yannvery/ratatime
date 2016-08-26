@@ -1,27 +1,21 @@
-<div id='rtt-new-tracker' class="well">
-  <%= simple_form_for @tracker, html: { :class => 'form-inline' }, defaults: { label: false }, remote: true do |f| %>
-    <%= f.input :logged_date, as: :date, placeholder: 'Date', wrapper_html: { class: 'rtt-inline-wrapper' } %>
-    <%= f.association :project, collection: current_user.projects.order(:name), prompt: "Choose a Project", wrapper_html: { class: 'rtt-inline-wrapper' } %>
-    <%= f.input :duration, placeholder: 'Duration', wrapper_html: { class: 'rtt-inline-input-wrapper rtt-inline-wrapper' } %>
-    <%= f.input :description, placeholder: 'Description', wrapper_html: { class: 'rtt-inline-input-wrapper rtt-inline-input-wrapper-description rtt-inline-wrapper' } %>
-    <%= f.button :submit, class: 'pull-right' %>
-  <% end %>
-</div>
+<% content_for :page_title do %>
+  <h5>Trackers</h5>
+<% end %>
 
-<div id="rtt-last-five-days" class="well">
+<div id="rtt-last-five-days" class="section">
   <table class= "table" style="text-align: center">
     <thead>
       <tr>
         <% ((4.days.ago.to_date)..(DateTime.now.to_date)).each do |day| %>
-        <th class="text-center"><%= day %></th>
+        <th class="center-align"><%= day %></th>
         <% end %>
       </tr>
     </thead>
     <tbody>
-      <tr class="text-center">
+      <tr class="center-align">
         <% ((4.days.ago.to_date)..(DateTime.now.to_date)).each do |day| %>
           <td>
-            <div style="width: 50px; margin:auto">
+            <div style="width: 100px; margin:auto">
               <canvas id="js-tracker-day-chart-<%= "#{day.to_s}" %>"></canvas>
             </div>
           </td>
@@ -36,10 +30,8 @@
               ],
               datasets: [
                 {
-                  data: [value, 12 - value],
-                  backgroundColor: [
-                    "#FF6384"
-                  ],
+                  data: <%= project_chart_data(current_user, day) %> ,
+                  backgroundColor: <%= raw project_chart_color(current_user, day) %>,
                   hoverBackgroundColor: [
                     "#FF6384"
                   ],
@@ -51,7 +43,7 @@
                 }]
             };
             var myChart = new Chart(ctx, {
-                type: 'pie',
+                type: 'doughnut',
                 data: data,
                 options: {
                   tooltips: {
@@ -65,23 +57,56 @@
     </tbody>
   </table>
 </div>
+<div class="divider"></div>
 
-<div id="rtt-log-entries" class="well">
+<div id="rtt-log-entries" class="rtt-table section">
   <table class= "table borderless">
     <tbody>
       <% @trackers.each do |tracker| %>
         <tr class="js-clickable-row" data-href= "<%= edit_tracker_path(tracker) %>">
-          <td><%= tracker.duration %></td>
-          <td><%= tracker.project_name %></td>
-          <td><%= tracker.description %></td>
-          <td><%= tracker.logged_date %></td>
-          <td class="actions">
-            <%= link_to raw('<i title="" data-toggle="tooltip" data-placement="top" class="glyphicon glyphicon-pencil" data-original-title="Edit"></i>'), edit_tracker_path(tracker), id: "rat-edit-tracker-#{tracker.id}", class: 'text-warning ' %>
-            <%= link_to raw('<i title="" data-toggle="tooltip" data-placement="top" class="glyphicon glyphicon-trash" data-original-title="Delete"></i>'), tracker, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
+          <td><div style="padding:0 0 0 2px;border-left: 3px solid <%= tracker.project.color %>"><i><%= tracker.duration %></i></div></td>
+          <td>
+            <span><b><%= tracker.project_name %></b></span><br />
+            <span class="tracker-description"><%= tracker.description %></span>
+          </td>
+          <td class="right-align"><i><%= l tracker.logged_date, format: "%Y/%m/%d" %></i></td>
+          <td class="actions right-align">
+            <%= link_to raw('<i class="material-icons">mode_edit</i>'), edit_tracker_path(tracker), id: "rat-edit-tracker-#{tracker.id}", class: 'text-warning ' %>
+            <%= link_to raw('<i class="material-icons">delete</i>'), tracker, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
           </td>
         </tr>
       <% end %>
     </tbody>
   </table>
+
+  <!-- Button tracker creation -->
+  <div class="fixed-action-btn" style="bottom: 45px; right: 40px;">
+    <a class="btn-floating btn-large red">
+      <i class="material-icons">add</i>
+    </a>
+    <ul>
+      <li><a class="btn-floating blue hide-on-med-and-down modal-trigger" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px); opacity: 0;" href="#new-tracker"><i class="material-icons">schedule</i></a></li>
+      <li><a class="btn-floating blue modal-trigger hide-on-large-only" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px); opacity: 0;" href="/trackers/new"><i class="material-icons">schedule</i></a></li>
+    </ul>
+  </div>
+  <!-- end button -->
 </div>
-<br>
+
+<!-- Modal Structure -->
+<div id="new-tracker" class="modal modal-fixed-footer">
+  <%= simple_form_for @tracker do |f| %>
+    <div class="modal-content">
+      <h4>Create a tracker</h4>
+        <%= f.input :logged_date, as: :string, input_html: { class: "datepicker" } %>
+        <%= f.input :duration %>
+        <%= f.association :project, collection: current_user.projects.order(:name), prompt: "Choose a Project" %>
+        <%= f.input :description %>
+
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+      <%= f.button :submit %>
+    </div>
+  <% end %>
+</div>
+<!-- End Modal Structure -->

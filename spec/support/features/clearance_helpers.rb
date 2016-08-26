@@ -20,7 +20,9 @@ module Features
     end
 
     def sign_out
-      click_link I18n.t("layouts.application.sign_out")
+      within("#nav-mobile") do
+        click_link I18n.t("layouts.application.sign_out")
+      end
     end
 
     def sign_up_with(email, password)

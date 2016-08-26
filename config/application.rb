@@ -17,5 +17,6 @@ module Ratatime
       g.helper_specs    false
     end
     config.active_record.time_zone_aware_types = [:time]
+    config.autoload_paths += %W(#{config.root}/app/services)
   end
 end

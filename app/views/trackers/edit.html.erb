@@ -1,5 +1,5 @@
-<h1>Editing Tracker</h1>
+<% content_for :page_title do %>
+  <h5>Editing Tracker</h5>
+<% end %>
 
 <%= render 'form', tracker: @tracker %>
-
-<%= link_to 'Back', trackers_path %>

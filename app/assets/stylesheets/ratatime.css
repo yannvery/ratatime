@@ -1,0 +1,49 @@
+html {
+  font-family: 'Roboto', sans-serif;
+  font-weight: medium;
+  overflow-x: hidden;
+  color: rgba(0,0,0,0.71);
+}
+body {
+  background-color: #F5F5F5;
+}
+
+nav {
+  background-color: #673AB7;
+}
+
+table tr td {
+  vertical-align: top;
+}
+
+.nav-wrapper {
+  padding-left: 15px;
+}
+.content {
+  background-color: #FFFFFF;
+}
+
+.page-title {
+  background-color: #B39DDB;
+  color: white;
+}
+
+.section {
+  padding: 15px;
+}
+
+.tracker-description {
+  color: #757575;
+  font-size: 12px;
+  font-style: italic;
+}
+
+div.tag-color {
+  margin: 0px 6px 0 0;
+  width: 20px;
+  height: 20px;
+  float: left;
+  text-decoration: none;
+  border-radius: 3px;
+  background-color: grey;
+}

@@ -21,6 +21,7 @@ RSpec.feature 'Create tracker' do
     fill_in('tracker_duration', with: '10m')
     fill_in('tracker_description', with: 'This is a test')
     select 'Master of the universe', from: 'tracker_project_id'
+
     click_button('Create Tracker')
 
     expect(page).to have_content('Tracker was successfully created.')

@@ -1,4 +1,6 @@
 <%= simple_form_for @project do |f| %>
   <%= f.input :name %>
+  <%= f.input :color, html: { id: 'project_color' } %>
   <%= f.button :submit %>
+  <%= link_to "Cancel", :back, class: "modal-action modal-close waves-effect waves-green btn-flat"%>
 <% end %>

@@ -1,27 +1,47 @@
-<h1>
-  <span>Projects</span>
-  <%= link_to 'New Project', new_project_path, class: 'btn btn-primary pull-right' %>
-</h1>
+<% content_for :page_title do %>
+  <h5>Projects</h5>
+<% end %>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th></th>
-    </tr>
-  </thead>
+<div class="section rtt-table">
+  <table class="table">
+    <tbody>
+      <% @projects.each do |project| %>
+        <tr class="js-clickable-row" data-href= "<%= edit_project_path(project) %>">
+          <td><div class="tag-color" style= "background-color: <%= project.color %>"></div><b><%= project.name %></b></td>
+          <td class="actions right-align">
+            <%= link_to raw('<i class="material-icons">mode_edit</i>'), edit_project_path(project), id: "rat-edit-project-#{project.id}", class: 'text-warning' %>
+            <%= link_to raw('<i class="material-icons">delete</i>'), project, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <!-- Button tracker creation -->
+  <div class="fixed-action-btn" style="bottom: 45px; right: 40px;">
+    <a class="btn-floating btn-large red">
+      <i class="material-icons">add</i>
+    </a>
+    <ul>
+      <li><a class="btn-floating blue hide-on-med-and-down modal-trigger" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px); opacity: 0;" href="#new-project"><i class="material-icons">web</i></a></li>
+      <li><a class="btn-floating blue modal-trigger hide-on-large-only" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px); opacity: 0;" href="/projects/new"><i class="material-icons">web</i></a></li>
+    </ul>
+  </div>
+  <!-- end button -->
 
-  <tbody>
-    <% @projects.each do |project| %>
-      <tr>
-        <td><%= project.name %></td>
-        <td class="pull-right">
-          <%= link_to raw('<i title="" data-toggle="tooltip" data-placement="top" class="glyphicon glyphicon-pencil" data-original-title="Edit"></i>'), edit_project_path(project), id: "rat-edit-project-#{project.id}", class: 'text-warning' %>
-          <%= link_to raw('<i title="" data-toggle="tooltip" data-placement="top" class="glyphicon glyphicon-trash" data-original-title="Delete"></i>'), project, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
-      </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+</div>
 
-<br>
+<!-- Modal Structure -->
+<div id="new-project" class="modal">
+  <%= simple_form_for @project do |f| %>
+    <div class="modal-content">
+      <h4>Create a project</h4>
+        <%= f.input :name %>
+        <%= f.input :color, html: { id: 'project_color' } %>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+      <%= f.button :submit %>
+    </div>
+  <% end %>
+</div>
+<!-- End Modal Structure -->

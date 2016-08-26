@@ -7,6 +7,7 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   def index
     @projects = Project.by_user(current_user).all
+    @project = Project.new
   end
 
   # GET /projects/new
@@ -67,6 +68,6 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.fetch(:project, {}).permit(:name)
+      params.fetch(:project, {}).permit(:name, :color)
     end
 end
