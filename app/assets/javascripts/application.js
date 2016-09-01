@@ -56,4 +56,7 @@ $( document ).on('turbolinks:load', function() {
   $(".js-clickable-row").click(function() {
       window.document.location = $(this).data("href");
   });
+  $( ".js-tracker-day-chart" ).each(function() {
+    display_dashboard_chart($(this));
+  });
 });

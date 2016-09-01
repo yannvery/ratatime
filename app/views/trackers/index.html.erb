@@ -16,33 +16,13 @@
         <% ((4.days.ago.to_date)..(DateTime.now.to_date)).each do |day| %>
           <td>
             <div style="width: 100px; margin:auto">
-              <canvas id="js-tracker-day-chart-<%= "#{day.to_s}" %>"></canvas>
+              <canvas class="js-tracker-day-chart"
+                      data-labels='<%= raw project_chart_label(current_user, day) %>',
+                      data-values='<%= project_chart_data(current_user, day) %>'
+                      data-colors='<%= project_chart_color(current_user, day) %>'>
+              </canvas>
             </div>
           </td>
-          <script>
-            duration_time = <%= @trackers.where(logged_date: day).inject(0) { |sum, t| sum + t.duration_time } %>;
-            value = duration_time / 3600;
-            var ctx = document.getElementById("js-tracker-day-chart-<%= "#{day.to_s}" %>");
-            var data = {
-              labels: <%= raw project_chart_label(current_user, day) %>,
-              datasets: [
-                {
-                  data: <%= project_chart_data(current_user, day) %> ,
-                  backgroundColor: <%= raw project_chart_color(current_user, day) %>,
-                  hoverBorderWidth:  [0,0],
-                  borderWidth: [0, 0],
-                }]
-            };
-            var myChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: data,
-                options: {
-                  tooltips: {
-                    enabled: false
-                  }
-                }
-            });
-          </script>
         <% end %>
       </tr>
     </tbody>
