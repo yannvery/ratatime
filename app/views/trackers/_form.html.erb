@@ -1,5 +1,5 @@
 <%= simple_form_for @tracker do |f| %>
-  <%= f.input :logged_date, input_html: { class: "datepicker" } %>
+  <%= f.input :logged_date, as: :string, input_html: { class: "datepicker" } %>
   <%= f.input :duration %>
   <%= f.association :project, collection: current_user.projects.order(:name), prompt: "Choose a Project" %>
   <%= f.input :description %>
