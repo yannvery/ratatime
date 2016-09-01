@@ -18,6 +18,7 @@ RSpec.feature 'Create tracker' do
     create(:project, name: 'Master of the universe', user: signed_in_user)
     visit new_tracker_path(as: signed_in_user)
 
+    fill_in('tracker_logged_date', with: '01-09-2016')
     fill_in('tracker_duration', with: '10m')
     fill_in('tracker_description', with: 'This is a test')
     select 'Master of the universe', from: 'tracker_project_id'
