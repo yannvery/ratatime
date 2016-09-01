@@ -2,6 +2,8 @@ function display_dashboard_chart(ctx){
   var labels = ctx.data("labels")
   var values = ctx.data("values")
   var colors = ctx.data("colors")
+  var title = ctx.data("title")
+
   var data = {
     labels: labels,
     datasets: [
@@ -16,6 +18,11 @@ function display_dashboard_chart(ctx){
       type: 'doughnut',
       data: data,
       options: {
+        title:{
+          display: true,
+          text: title,
+          position: 'bottom'
+        },
         tooltips: {
           enabled: false
         }

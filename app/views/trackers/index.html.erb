@@ -15,11 +15,12 @@
       <tr class="center-align">
         <% ((4.days.ago.to_date)..(DateTime.now.to_date)).each do |day| %>
           <td>
-            <div style="width: 100px; margin:auto">
+            <div style="width: 150px; margin:auto">
               <canvas class="js-tracker-day-chart"
                       data-labels='<%= raw project_chart_label(current_user, day) %>',
                       data-values='<%= project_chart_data(current_user, day) %>'
-                      data-colors='<%= project_chart_color(current_user, day) %>'>
+                      data-colors='<%= project_chart_color(current_user, day) %>'
+                      data-title='<%= project_chart_duration(current_user, day) %>'>
               </canvas>
             </div>
           </td>
@@ -28,6 +29,7 @@
     </tbody>
   </table>
 </div>
+
 <div class="divider"></div>
 
 <div id="rtt-log-entries" class="rtt-table section">
