@@ -8,7 +8,7 @@
       <% @projects.each do |project| %>
         <tr class="js-clickable-row" data-href= "<%= edit_project_path(project) %>">
           <td><div class="tag-color" style= "background-color: <%= project.color %>"></div><b><%= project.name %></b></td>
-          <td class="actions right-align">
+          <td class="actions right-align hide-on-med-and-down">
             <%= link_to raw('<i class="material-icons">mode_edit</i>'), edit_project_path(project), id: "rat-edit-project-#{project.id}", class: 'text-warning' %>
             <%= link_to raw('<i class="material-icons">delete</i>'), project, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
           </td>

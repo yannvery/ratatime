@@ -2,7 +2,7 @@
   <h5>Trackers</h5>
 <% end %>
 
-<div id="rtt-last-five-days" class="section">
+<div id="rtt-last-five-days" class="section hide-on-med-and-down">
   <table class= "table" style="text-align: center">
     <thead>
       <tr>
@@ -61,7 +61,7 @@
             <span class="tracker-description"><%= tracker.description %></span>
           </td>
           <td class="right-align"><i><%= l tracker.logged_date, format: "%Y/%m/%d" %></i></td>
-          <td class="actions right-align">
+          <td class="actions right-align hide-on-med-and-down">
             <%= link_to raw('<i class="material-icons">mode_edit</i>'), edit_tracker_path(tracker), id: "rat-edit-tracker-#{tracker.id}", class: 'text-warning ' %>
             <%= link_to raw('<i class="material-icons">delete</i>'), tracker, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
           </td>
