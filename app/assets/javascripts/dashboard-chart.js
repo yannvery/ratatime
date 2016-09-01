@@ -1,8 +1,7 @@
-function display_dashboard_chart(canvas){
-  var labels = canvas.data("labels")
-  var values = canvas.data("values")
-  var colors = canvas.data("colors")
-  var ctx = canvas;
+function display_dashboard_chart(ctx){
+  var labels = ctx.data("labels")
+  var values = ctx.data("values")
+  var colors = ctx.data("colors")
   var data = {
     labels: labels,
     datasets: [
