@@ -24,21 +24,12 @@
             value = duration_time / 3600;
             var ctx = document.getElementById("js-tracker-day-chart-<%= "#{day.to_s}" %>");
             var data = {
-              labels: [
-                "",
-                "",
-              ],
+              labels: <%= raw project_chart_label(current_user, day) %>,
               datasets: [
                 {
                   data: <%= project_chart_data(current_user, day) %> ,
                   backgroundColor: <%= raw project_chart_color(current_user, day) %>,
-                  hoverBackgroundColor: [
-                    "#FF6384"
-                  ],
-                  hoverBorderWidth:  [
-                    0,
-                    0
-                  ],
+                  hoverBorderWidth:  [0,0],
                   borderWidth: [0, 0],
                 }]
             };
