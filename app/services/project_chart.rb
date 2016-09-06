@@ -1,14 +1,16 @@
 class ProjectChart
-  def initialize(user: nil)
-    @user = user
+  def self.for(user: nil, date: nil)
+    return [] if user.nil? || date.nil?
+    grouped_tracker = Tracker.select('project_id, logged_date, sum(duration_time) as duration').where(user: user).where(logged_date: (date - 5.days)..date).group('project_id, logged_date')
+    grouped_tracker.map { |t| ProjectChart.new(project: t.project, duration: t.duration, color: t.project.color, logged_date: t.logged_date) }
   end
 
-  def by_date(day)
-    Tracker.where(user: @user).where(logged_date: day).each_with_object({}) do |tracker, memo|
-      project = tracker.project
-      memo[project.id] = Hash.new(0) unless memo.key?(project.id)
-      memo[project.id][:value] += tracker.duration_time / 3600.0
-      memo[project.id][:color] = project.color
-    end
+  attr_reader :project, :duration, :color, :logged_date
+
+  def initialize(project: nil, duration: nil, color: nil, logged_date: nil)
+    @project = project
+    @duration = duration
+    @color = color
+    @logged_date = logged_date
   end
 end
