@@ -26,6 +26,18 @@ RSpec.describe Chronic::Duration, '#to_s' do
   end
 end
 
+RSpec.describe Chronic::Duration, '#humanize' do
+  it 'returns 1h30 if magnitude is 5400' do
+    duration = Chronic::Duration.new(5400)
+    expect(duration.humanize).to eq '1h30'
+  end
+
+  it 'returns 4h05 if magnitude is 14700' do
+    duration = Chronic::Duration.new(14700)
+    expect(duration.humanize).to eq '4h05'
+  end
+end
+
 RSpec.describe Chronic::Duration, '.for' do
   it 'returns Minutes object even value is less than a minute' do
     obj = Chronic::Duration.for('30s')

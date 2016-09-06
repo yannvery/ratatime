@@ -53,5 +53,12 @@ module Chronic
     def +(other)
       self.class.new(magnitude + other.to_seconds)
     end
+
+    def humanize
+      hours = Hours[self.to_hours.to_i]
+      minutes = Minutes[to_minutes.to_i.divmod(60).last]
+      return "#{minutes.magnitude}m" if hours.magnitude < 1
+      "#{hours.magnitude}h#{'%02d' % minutes.magnitude}"
+    end
   end
 end
