@@ -9,10 +9,8 @@ RSpec.describe ProjectChart, '.for' do
   it 'returns an array of ProjectChart objects' do
     user = create(:user, email: 'yann@ratatime.com')
     ratatime = create(:project, name: 'Ratatime', color: 'red')
-    admin = create(:project, name: 'Admin', color: 'white')
     ratatime_tracker_1 = create(:tracker, project: ratatime, duration: '60m', logged_date: '2016-08-25', user: user)
     ratatime_tracker_2 = create(:tracker, project: ratatime, duration: '2:00', logged_date: '2016-08-25', user: user)
-    admin_tracker = create(:tracker, project: admin, duration: '3:00', logged_date: '2016-08-25', user: user)
 
     project_charts = ProjectChart.for(user: user, date: '2016-08-25'.to_date)
     expect(project_charts.first.class).to eq ProjectChart
