@@ -17,10 +17,10 @@
           <td>
             <div style="width: 150px; margin:auto">
               <canvas class="js-tracker-day-chart"
-                      data-labels='<%= raw project_chart_label(current_user, day) %>',
-                      data-values='<%= project_chart_data(current_user, day) %>'
-                      data-colors='<%= project_chart_color(current_user, day) %>'
-                      data-title='<%= project_chart_duration(current_user, day) %>'>
+                      data-labels='<%= raw project_chart_label(day, @project_charts) %>',
+                      data-values='<%= project_chart_data(day, @project_charts) %>'
+                      data-colors='<%= project_chart_color(day, @project_charts) %>'
+                      data-title='<%= project_chart_duration(day, @project_charts) %>'>
               </canvas>
             </div>
           </td>

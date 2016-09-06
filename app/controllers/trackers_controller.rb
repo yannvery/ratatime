@@ -6,6 +6,7 @@ class TrackersController < ApplicationController
   # GET /trackers
   # GET /trackers.json
   def index
+    @project_charts = ProjectChart.for(user: current_user, date: Date.today)
     @trackers = Tracker.by_user(current_user).by_logged_date.all
     @tracker = Tracker.new
   end
