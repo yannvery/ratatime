@@ -54,6 +54,7 @@ class TrackersController < ApplicationController
   # DELETE /trackers/1
   # DELETE /trackers/1.json
   def destroy
+    authorize @tracker
     @tracker.destroy
     respond_to do |format|
       format.html { redirect_to trackers_url, notice: 'Tracker was successfully destroyed.' }
