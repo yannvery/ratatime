@@ -36,7 +36,7 @@
     <div class="modal-content">
       <h4>Create a project</h4>
         <%= f.input :name %>
-        <%= f.input :color, html: { id: 'project_color' } %>
+        <%= f.input :color, as: :color, input_html: { default_value: "#FF0000"} %>
     </div>
     <div class="modal-footer">
       <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>

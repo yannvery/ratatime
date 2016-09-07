@@ -14,7 +14,6 @@
 // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
 
 @import "materialize";
-@import "materialize-colorpicker";
 @import "ratatime";
 
 .form-signin {
@@ -84,4 +83,11 @@
 
 .borderless td, .borderless th {
   border: none !important;
+}
+
+input[type=color] {
+  @extend input[type=text];
+  display: block;
+  width: 50px;
+  border-bottom: none;
 }
